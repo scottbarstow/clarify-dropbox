@@ -2,9 +2,18 @@ extends layout
 block content
   .container
     h1 Records
-    ul
-      each record in records
-        li= record.name
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th URL
+          th Date Added
+      tbody
+        each record in records
+          tr
+            td= record.name
+            td= record.url
+            td= record.addedAt
 
-    a.btn-default(href="/new") Add
+    a.btn.btn-default(href="/new") Add
 

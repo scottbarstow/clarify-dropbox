@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/scottbarstow/clarify-indexer",
   "dependencies": {
+    "body-parser": "^1.13.1",
     "bower": "^1.4.1",
     "clarifyio": "0.0.3",
     "express": "^4.13.0",

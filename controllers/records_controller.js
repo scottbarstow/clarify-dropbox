@@ -15,7 +15,13 @@ exports.new = function(req, res) {
 };
 
 exports.add =function(req, res) {
-
+  Record.create({
+    name: req.body.name,
+    url: req.body.url,
+    addedAt: Date.now()
+  }, function(){
+    res.redirect('/');
+  });
 };
 
 exports.notify = function(req, res) {
