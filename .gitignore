@@ -27,3 +27,6 @@ build/Release
 node_modules
 
 .idea
+.DS_Store
+
+bower_components
