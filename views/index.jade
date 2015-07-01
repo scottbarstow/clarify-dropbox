@@ -1,0 +1,10 @@
+extends layout
+block content
+  .container
+    h1 Records
+    ul
+      each record in records
+        li= record.name
+
+    a.btn-default(href="/new") Add
+

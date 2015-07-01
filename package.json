@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,18 @@
   "homepage": "https://github.com/scottbarstow/clarify-indexer",
   "dependencies": {
     "bower": "^1.4.1",
-    "clarify": "^1.0.5",
-    "express": "^4.13.0"
+    "clarifyio": "0.0.3",
+    "express": "^4.13.0",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "^2.0.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-node-inspector": "^0.2.0",
+    "grunt-nodemon": "^0.4.0",
+    "load-grunt-tasks": "^3.2.0",
+    "mongoose": "^4.0.6"
   }
 }
