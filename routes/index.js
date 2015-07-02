@@ -17,9 +17,14 @@ router.post('/new', function(req, res){
   records.add(req, res);
 });
 
-router.post('/notify/:id', function(req, res){
+router.post('/notify', function(req, res){
   records.notify(req, res);
 });
+
+router.get('/show/:id', function(req, res){
+  records.show(req, res);
+});
+
 
 
 module.exports = router;
