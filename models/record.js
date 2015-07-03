@@ -11,6 +11,13 @@ var Record = new mongoose.Schema({
     type: String,
     trim: true
   },
+  data: {
+   type: String
+  },
+  duration: {
+    type: Number,
+    default: 0
+  },
   addedAt: {
     type: Date
   },
