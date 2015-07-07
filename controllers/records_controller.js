@@ -100,19 +100,6 @@ exports.search = function(req, res) {
 
 };
 
-var gatherDuration = function(media) {
-  var durations = (media.tracks || []).filter(function(track){
-    return track.duration != null;
-  }).map(function(track){
-    return track.duration;
-  });
-  var duration = null;
-  if(durations && durations.length > 0){
-    duration = durations.reduce(function(prev, cur){ return Math.max(prev, cur);});
-  }
-  return duration;
-};
-
 var gatherHits = function(itemResult, terms) {
   var hits = [];
   (itemResult.term_results || []).forEach(function (tr, i) {
