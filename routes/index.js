@@ -9,6 +9,16 @@ router.get('/', function(req, res){
   records.index(req, res);
 });
 
+router.post('/search', function(req, res){
+  console.log(req);
+  records.search(req, res);
+});
+
+router.get('/search', function(req, res){
+  res.render('search/index')
+});
+
+
 router.get('/new', function(req, res){
   records.new(req, res);
 });

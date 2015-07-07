@@ -1,5 +1,5 @@
-.content {
-    margin-top: 100px;
+.search input[type="text"], button {
+    width: 100%;
 }
 
 .media{
@@ -70,5 +70,3 @@
 #searchForm{
   margin-left: 5px;
 }
-
-

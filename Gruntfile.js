@@ -26,10 +26,28 @@ module.exports = function(grunt) {
       }
     },
     copy: {
+      js: {
+        files: [
+          {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/js', src: [
+            'jquery/dist/jquery.js',
+	    'lodash/dist/lodash.js',
+            'jplayer/dist/jplayer/jquery.jplayer.js',
+            'bootstrap/dist/js/bootstrap.js'
+          ]}
+        ]
+      },
+      swf: {
+        files: [
+          {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/swf', src: [
+            'jplayer/dist/jplayer/jquery.jplayer.swf'
+          ]}
+        ]
+      },
       css: {
         files: [
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/css', src: [
-            'bootstrap/dist/css/bootstrap.css'
+            'bootstrap/dist/css/bootstrap.css',
+            'jplayer/dist/skin/blue.monday/css/jplayer.blue.monday.css'
           ]},
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/css', src: [
             'font-awesome/css/font-awesome.css'
@@ -39,11 +57,11 @@ module.exports = function(grunt) {
       fonts: {
         files: [
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/fonts', src: [
-            'font-awesome/fonts/fontawesome-webfont.eot',
-            'font-awesome/fonts/fontawesome-webfont.svg',
-            'font-awesome/fonts/fontawesome-webfont.ttf',
-            'font-awesome/fonts/fontawesome-webfont.woff',
-            'font-awesome/fonts/fontawesome-webfont.woff2'
+            'bootstrap/fonts/glyphicons-halflings-regular.eot',
+            'bootstrap/fonts/glyphicons-halflings-regular.svg',
+            'bootstrap/fonts/glyphicons-halflings-regular.ttf',
+            'bootstrap/fonts/glyphicons-halflings-regular.woff',
+            'bootstrap/fonts/glyphicons-halflings-regular.woff2'
           ]}
         ]
       }

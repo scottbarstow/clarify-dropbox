@@ -13,6 +13,9 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5",
-    "font-awesome": "~4.3.0"
+    "font-awesome": "~4.3.0",
+    "jplayer": "~2.9.2",
+    "jquery": "~2.1.4",
+    "lodash": "~2.4.1"
   }
 }
