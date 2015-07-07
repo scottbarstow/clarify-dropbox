@@ -33,6 +33,7 @@ exports.add =function(req, res) {
       external_id: record._id,
       metadata: JSON.stringify(metadata)
     });
+    res.redirect('/');
   });
 };
 
