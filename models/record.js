@@ -23,9 +23,6 @@ var Record = new mongoose.Schema({
   },
   indexedAt: {
     type: Date
-  },
-  data: {
-    type: String,
   }
 });
 
