@@ -11,8 +11,16 @@ exports.strategy = function() {
       callbackURL: config.BASE_URL + '/auth/dropbox/callback'
     },
     function(token, tokenSecret, profile, done) {
-      process.nextTick(function () {
-        return done(null, profile);
+      User.findOne({dropboxId: profile.id}, function(err, user){
+        if (user == null) {
+          User.create({
+            dropboxId: profile.id
+          }, function(err, user){
+            return done(err, user);
+          });
+        } else {
+          return done(err, user);
+        }
       });
     });
 };

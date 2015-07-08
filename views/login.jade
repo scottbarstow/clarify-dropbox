@@ -4,6 +4,9 @@ block content
     .col-sm-offset-4.col-sm-4.center
       .window
         h2 Sign In
+        a(href='/auth/dropbox')
+          i.fa.fa-dropbox
+          != "Login with Dropbox"
         form(action='/login', method='post')
           .form-inputs
             .form-group

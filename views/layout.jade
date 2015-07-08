@@ -17,7 +17,14 @@ html
               a(href='/') Records
             li
               a(href='/search') Search
-    .content
+          ul.nav.navbar-nav.navbar-right
+            li
+              if (user)
+                a(href='/logout') Logout
+              else
+                a(href='/login') Login
+
+  .content
       block content
 
     script(src='/lib/js/jquery.js')

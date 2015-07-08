@@ -6,8 +6,6 @@ var crypto = require('crypto');
 var User = new mongoose.Schema({
   username: {
     type: String,
-    unique: 'Username already exists',
-    required: 'Please fill in a username',
     trim: true
   },
   password: {
@@ -23,6 +21,9 @@ var User = new mongoose.Schema({
       enum: ['user', 'admin']
     }],
     default: ['user']
+  },
+  dropboxId: {
+    type: String
   }
 });
 
