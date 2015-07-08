@@ -9,12 +9,8 @@ var  _ = require('lodash');
 
 exports.index = function(req, res) {
   Record.find({}, function(err, records){
-    res.render('index', {records: records});
+    res.render('records/index', {records: records});
   });
-};
-
-exports.new = function(req, res) {
-  res.render('new');
 };
 
 exports.add =function(req, res) {
@@ -52,7 +48,7 @@ exports.notify = function(req, res) {
 
 exports.show = function(req, res) {
   Record.findById(req.params.id, function(err, record){
-    res.render('show', {data: record.data})
+    res.render('records/show', {data: record.data})
   });
 };
 

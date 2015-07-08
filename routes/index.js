@@ -1,26 +1,25 @@
 'use strict';
 
-var express = require('express'),
-  router = express.Router(),
-  records = require('../controllers/records_controller');
-
+var express = require('express');
+var router = express.Router();
+var records = require('../controllers/records_controller');
+var users = require('../controllers/users_controller');
 
 router.get('/', function(req, res){
   records.index(req, res);
 });
 
 router.post('/search', function(req, res){
-  console.log(req);
   records.search(req, res);
 });
 
 router.get('/search', function(req, res){
-  res.render('search/index')
+  res.render('records/search')
 });
 
 
 router.get('/new', function(req, res){
-  records.new(req, res);
+  res.render('records/new');
 });
 
 router.post('/new', function(req, res){
@@ -34,6 +33,8 @@ router.post('/notify', function(req, res){
 router.get('/show/:id', function(req, res){
   records.show(req, res);
 });
+
+router.post('/sign_in', users.sign_in);
 
 
 
