@@ -1,6 +1,9 @@
 var passport = require('passport');
 var local = require('./strategies/local');
 var dropbox = require('./strategies/dropbox');
+require('../../models/user');
+var User = require('mongoose').model('User');
+
 
 module.exports = function() {
   passport.serializeUser(function(user, done) {

@@ -3,7 +3,7 @@ var config = require('../config');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-mongoose.connect(config.mongodb.uri);
+mongoose.connect(config.mongodb.URI);
 
 module.exports = function(){
   var done = this.async();
