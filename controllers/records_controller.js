@@ -38,7 +38,6 @@ exports.add =function(req, res) {
 };
 
 exports.notify = function(req, res) {
-  console.log(req.body);
   if (req.body.track_id) { // Handle tracks
     var trackData = req.body._embedded['clarify:track'];
     Record.findById(req.body.external_id, function(err, record){

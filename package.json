@@ -22,7 +22,8 @@
     "clarifyio": "0.0.3",
     "express": "^4.13.0",
     "jade": "^1.11.0",
-    "lodash": "^3.10.0"
+    "lodash": "^3.10.0",
+    "passport-dropbox": "^0.1.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
