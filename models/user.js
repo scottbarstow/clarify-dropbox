@@ -12,8 +12,7 @@ var User = new mongoose.Schema({
   },
   password: {
     type: String,
-    default: '',
-    validate: [validateLocalStrategyPassword, 'Password should be longer']
+    default: ''
   },
   salt: {
     type: String
@@ -28,7 +27,7 @@ var User = new mongoose.Schema({
 });
 
 User.pre('save', function(next) {
-  if (this.password && this.password.length > 6) {
+  if (this.password) {
     this.salt = crypto.randomBytes(16).toString('base64');
     this.password = this.hashPassword(this.password);
   }

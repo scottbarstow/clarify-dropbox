@@ -1,5 +1,8 @@
 var config = {
   BASE_URL: 'http://localhost:3000',
+  mongodb: {
+    uri: 'mongodb://localhost/clarify-indexer'
+  },
   clarify: {
     API_KEY: 'ahugtdSjrSVGoomh1dnJXrg+eU6cjJ7T7ScwN+AcaWy4A'
   },

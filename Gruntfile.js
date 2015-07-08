@@ -92,4 +92,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['copy', 'lint', 'concurrent:default']);
   grunt.registerTask('debug', ['lint', 'concurrent:debug']);
   grunt.registerTask('lint', ['jshint', 'csslint']);
+
+  var seed = require('./tasks/seed');
+  grunt.task.registerTask('seed', 'Seeds default data', seed);
 };

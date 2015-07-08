@@ -1,4 +1,7 @@
-var config = require('../config');
+require('../../../models/user');
+
+var config = require('../../../config');
+var User = require('mongoose').model('User');
 var DropboxStrategy = require('passport-dropbox').Strategy;
 
 exports.strategy = function() {
