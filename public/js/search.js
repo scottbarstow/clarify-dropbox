@@ -21,7 +21,6 @@ $(function(){
       .then(function(r){
         error.hide();
         var items = r.results;
-        console.log(items);
         if(!items || items.length == 0){
           result.append("<div class=\"not-found\">Not found</div>");
         }
@@ -30,7 +29,6 @@ $(function(){
           list.addClass("playlist");
           result.append(list);
           _.forEach(items, function(item){
-	    console.log(item.hits);
             var el  = $(_.template(searchResultTemplate, item));
             list.append(el);
             initJplayer(el, item.name, item.mediaUrl, item.hits, item.duration);
