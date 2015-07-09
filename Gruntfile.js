@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         files: [
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/js', src: [
             'jquery/dist/jquery.js',
-	    'lodash/dist/lodash.js',
+	          'lodash/dist/lodash.js',
             'jplayer/dist/jplayer/jquery.jplayer.js',
             'bootstrap/dist/js/bootstrap.js'
           ]}
@@ -70,7 +70,12 @@ module.exports = function(grunt) {
             'bootstrap/fonts/glyphicons-halflings-regular.svg',
             'bootstrap/fonts/glyphicons-halflings-regular.ttf',
             'bootstrap/fonts/glyphicons-halflings-regular.woff',
-            'bootstrap/fonts/glyphicons-halflings-regular.woff2'
+            'bootstrap/fonts/glyphicons-halflings-regular.woff2',
+            'font-awesome/fonts/fontawesome-webfont.eot',
+            'font-awesome/fonts/fontawesome-webfont.svg',
+            'font-awesome/fonts/fontawesome-webfont.ttf',
+            'font-awesome/fonts/fontawesome-webfont.woff',
+            'font-awesome/fonts/fontawesome-webfont.woff2'
           ]}
         ]
       }
