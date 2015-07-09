@@ -7,7 +7,7 @@ var passport = require('passport');
 
 var ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  res.redirect('/sign_in');
 };
 
 router.get('/', function(req, res){
@@ -39,11 +39,11 @@ router.get('/show/:id', function(req, res){
   records.show(req, res);
 });
 
-router.get('/login', function(req, res){
-  res.render('login', { user: req.user });
+router.get('/sign_in', function(req, res){
+  res.render('sign_in', { user: req.user });
 });
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login'}), function(req, res){
+router.post('/sign_in', passport.authenticate('local', { failureRedirect: '/sign_in'}), function(req, res){
   res.redirect('/');
 });
 
@@ -53,12 +53,12 @@ router.get('/auth/dropbox',
   });
 
 router.get('/auth/dropbox/callback',
-  passport.authenticate('dropbox', { failureRedirect: '/login' }),
+  passport.authenticate('dropbox', { failureRedirect: '/sign_in' }),
   function(req, res) {
     res.redirect('/');
   });
 
-router.get('/logout', function(req, res){
+router.get('/sign_out', function(req, res){
   req.logout();
   res.redirect('/');
 });
