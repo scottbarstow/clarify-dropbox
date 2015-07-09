@@ -10,11 +10,11 @@ var ensureAuthenticated = function(req, res, next) {
   res.redirect('/sign_in');
 };
 
-router.get('/', function(req, res){
+router.get('/', ensureAuthenticated, function(req, res){
   records.index(req, res);
 });
 
-router.post('/search', function(req, res){
+router.post('/search', ensureAuthenticated, function(req, res){
   records.search(req, res);
 });
 
@@ -35,7 +35,7 @@ router.post('/notify', function(req, res){
   records.notify(req, res);
 });
 
-router.get('/show/:id', function(req, res){
+router.get('/show/:id', ensureAuthenticated, function(req, res){
   records.show(req, res);
 });
 
