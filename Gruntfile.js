@@ -54,6 +54,15 @@ module.exports = function(grunt) {
           ]}
         ]
       },
+      images: {
+        files: [
+          {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/image', src: [
+            'jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.jpg',
+            'jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.seeking.gif',
+            'jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.video.play.png'
+          ]}
+        ]
+      },
       fonts: {
         files: [
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/fonts', src: [
