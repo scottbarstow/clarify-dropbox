@@ -3,11 +3,17 @@
 var express = require('express');
 var router = express.Router();
 var records = require('../controllers/records_controller');
+var tags = require('../controllers/tags_controller');
 var passport = require('passport');
 
 var ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/sign_in');
+};
+
+var ensureAuthenticatedAjax = function(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.status(401).json('User is not authorized.');
 };
 
 router.get('/', ensureAuthenticated, function(req, res){
@@ -29,6 +35,14 @@ router.get('/new', ensureAuthenticated, function(req, res){
 
 router.post('/new', ensureAuthenticated, function(req, res){
   records.add(req, res);
+});
+
+router.post('/record/:recordId/tags', ensureAuthenticatedAjax, function(req, res){
+  tags.add(req, res);
+});
+
+router.delete('/record/:recordId/tags/:name', ensureAuthenticatedAjax, function(req, res){
+  tags.remove(req, res);
 });
 
 router.post('/notify', function(req, res){

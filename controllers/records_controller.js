@@ -1,7 +1,9 @@
 'use strict';
 
 require('../models/record.js');
+require('../models/tag.js');
 var Record = require('mongoose').model('Record');
+var Tag = require('mongoose').model('Tag');
 var clarify = require('clarifyio');
 var config = require('../config');
 var clarifyClient = new clarify.Client("api.clarify.io", config.clarify.API_KEY);
@@ -48,7 +50,10 @@ exports.notify = function(req, res) {
 
 exports.show = function(req, res) {
   Record.findById(req.params.id, function(err, record){
-    res.render('records/show', {data: record.data, user: req.user})
+    Tag.find({record: record, user: req.user}, function(err, tags){
+      var tagsString = _.map(tags, 'name').join(',');
+      res.render('records/show', {record: record, user: req.user, tags: tagsString});
+    });
   });
 };
 
