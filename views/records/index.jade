@@ -2,13 +2,15 @@ extends ../layout
 block content
   .container
     h1 Records
+    each tag in tags
+      a.label.label-info(href="/?tag=" + tag)= tag
+
     table.table.table-hover
       thead
         tr
           th Name
           th URL
           th Date Added
-          th Date Indexed
           th
         tbody
         each record in records
@@ -16,9 +18,9 @@ block content
             td= record.name
             td= record.url
             td= record.addedAt
-            td= record.indexedAt
             td
               if record.indexedAt
                 a(href="/show/#{record._id}") Show
     a.btn.btn-default(href="/new") Add
+
 

@@ -1,17 +1,18 @@
 'use strict';
 
 require('../models/record.js');
-require('../models/tag.js');
 var Record = require('mongoose').model('Record');
-var Tag = require('mongoose').model('Tag');
 var clarify = require('clarifyio');
 var config = require('../config');
 var clarifyClient = new clarify.Client("api.clarify.io", config.clarify.API_KEY);
 var  _ = require('lodash');
 
 exports.index = function(req, res) {
-  Record.find({}, function(err, records){
-    res.render('records/index', {records: records, user: req.user});
+  console.log(req.query.tag);
+  Record.find({'tags.name': req.query.tag}, function(err, records){
+    Record.find().distinct('tags.name', function(err, tags){
+      res.render('records/index', {records: records, user: req.user, tags: tags});
+    });
   });
 };
 
@@ -49,12 +50,12 @@ exports.notify = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  Record.findById(req.params.id, function(err, record){
-    Tag.find({record: record, user: req.user}, function(err, tags){
-      var tagsString = _.map(tags, 'name').join(',');
-      res.render('records/show', {record: record, user: req.user, tags: tagsString});
+  Record.findById(req.params.id)
+    .populate('tags')
+    .exec(function(err, record){
+        var tagsString = _.map(record.tags, 'name').join(',');
+        res.render('records/show', {record: record, user: req.user, tags: tagsString});
     });
-  });
 };
 
 exports.search = function(req, res) {
