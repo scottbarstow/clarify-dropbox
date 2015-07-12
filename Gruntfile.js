@@ -32,7 +32,8 @@ module.exports = function(grunt) {
             'jquery/dist/jquery.js',
 	          'lodash/dist/lodash.js',
             'jplayer/dist/jplayer/jquery.jplayer.js',
-            'bootstrap/dist/js/bootstrap.js'
+            'bootstrap/dist/js/bootstrap.js',
+            'bootstrap-tagsinput/dist/bootstrap-tagsinput.js'
           ]}
         ]
       },
@@ -47,6 +48,7 @@ module.exports = function(grunt) {
         files: [
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/css', src: [
             'bootstrap/dist/css/bootstrap.css',
+            'bootstrap-tagsinput/dist/bootstrap-tagsinput.css',
             'jplayer/dist/skin/blue.monday/css/jplayer.blue.monday.css'
           ]},
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/css', src: [

@@ -8,8 +8,15 @@ var clarifyClient = new clarify.Client("api.clarify.io", config.clarify.API_KEY)
 var  _ = require('lodash');
 
 exports.index = function(req, res) {
-  Record.find({}, function(err, records){
-    res.render('records/index', {records: records, user: req.user});
+  console.log();
+  var filter = {};
+  if (req.query.tag) {
+    filter['tags.name'] = req.query.tag;
+  }
+  Record.find(filter, function(err, records){
+    Record.find().distinct('tags.name', function(err, tags){
+      res.render('records/index', {records: records, user: req.user, tags: tags});
+    });
   });
 };
 
@@ -47,9 +54,12 @@ exports.notify = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  Record.findById(req.params.id, function(err, record){
-    res.render('records/show', {data: record.data, user: req.user})
-  });
+  Record.findById(req.params.id)
+    .populate('tags')
+    .exec(function(err, record){
+        var tagsString = _.map(record.tags, 'name').join(',');
+        res.render('records/show', {record: record, user: req.user, tags: tagsString});
+    });
 };
 
 exports.search = function(req, res) {

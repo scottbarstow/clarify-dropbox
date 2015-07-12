@@ -23,7 +23,13 @@ var Record = new mongoose.Schema({
   },
   indexedAt: {
     type: Date
-  }
+  },
+  tags: [{
+    name:{
+      type: String,
+      trim: true
+    }
+  }]
 });
 
 module.exports = mongoose.model('Record', Record);
