@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         files: [
           {expand: true, flatten: true, cwd: 'bower_components', dest: 'public/lib/js', src: [
             'jquery/dist/jquery.js',
-	          'lodash/dist/lodash.js',
+	    'lodash/dist/lodash.js',
             'jplayer/dist/jplayer/jquery.jplayer.js',
             'bootstrap/dist/js/bootstrap.js',
             'bootstrap-tagsinput/dist/bootstrap-tagsinput.js'

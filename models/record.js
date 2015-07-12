@@ -29,7 +29,11 @@ var Record = new mongoose.Schema({
       type: String,
       trim: true
     }
-  }]
+  }],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  }
 });
 
 module.exports = mongoose.model('Record', Record);

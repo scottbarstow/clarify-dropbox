@@ -8,8 +8,9 @@ var clarifyClient = new clarify.Client("api.clarify.io", config.clarify.API_KEY)
 var  _ = require('lodash');
 
 exports.index = function(req, res) {
-  console.log();
-  var filter = {};
+  var filter = {
+    user: req.user
+  };
   if (req.query.tag) {
     filter['tags.name'] = req.query.tag;
   }
@@ -20,11 +21,12 @@ exports.index = function(req, res) {
   });
 };
 
-exports.add =function(req, res) {
+exports.add = function(req, res) {
   Record.create({
     name: req.body.name,
     url: req.body.url,
-    addedAt: Date.now()
+    addedAt: Date.now(),
+    user: req.user
   }, function(err, record){
     var metadata = {
       recordId: record._id
@@ -54,11 +56,15 @@ exports.notify = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  Record.findById(req.params.id)
+  Record.findOne({_id: req.params.id, user: req.user})
     .populate('tags')
     .exec(function(err, record){
-        var tagsString = _.map(record.tags, 'name').join(',');
-        res.render('records/show', {record: record, user: req.user, tags: tagsString});
+	if (err) {
+	  res.status(404).send('Not found');
+	} else{
+          var tagsString = _.map(record.tags, 'name').join(',');
+          res.render('records/show', {record: record, user: req.user, tags: tagsString});
+	}
     });
 };
 
@@ -79,7 +85,7 @@ exports.search = function(req, res) {
       });
     }
 
-    Record.find({"_id": {"$in": ids}}, function(err, data){
+    Record.find({"_id": {"$in": ids}, user: req.user}, function(err, data){
       var records = _.transform(data, function(trecords, item){
         trecords[item.id] = item;
       });
