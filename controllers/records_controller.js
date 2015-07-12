@@ -8,8 +8,12 @@ var clarifyClient = new clarify.Client("api.clarify.io", config.clarify.API_KEY)
 var  _ = require('lodash');
 
 exports.index = function(req, res) {
-  console.log(req.query.tag);
-  Record.find({'tags.name': req.query.tag}, function(err, records){
+  console.log();
+  var filter = {};
+  if (req.query.tag) {
+    filter['tags.name'] = req.query.tag;
+  }
+  Record.find(filter, function(err, records){
     Record.find().distinct('tags.name', function(err, tags){
       res.render('records/index', {records: records, user: req.user, tags: tags});
     });
