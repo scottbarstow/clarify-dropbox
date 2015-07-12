@@ -71,36 +71,38 @@ exports.search = function(req, res) {
   clarifyClient.search({query: query, embed: 'metadata'}, function(err, result){
     var terms = (result.search_terms || []).map(function(t){ return t.term; });
     var count = Math.min(result.total, result.limit);
+
+    var ids = [];
     if (count > 0) {
-      var ids = result._embedded.items.map(function(item){
+      ids = result._embedded.items.map(function(item){
         return item._embedded["clarify:metadata"].data.recordId;
       });
-
-      Record.find({"_id": {"$in": ids}}, function(err, data){
-        var records = _.transform(data, function(trecords, item){
-          trecords[item.id] = item;
-        });
-
-        for(var i = 0; i < count; i++) {
-          var metadata = result._embedded.items[i]._embedded["clarify:metadata"].data;
-          var itemResult = result.item_results[i];
-          var media = records[metadata.recordId];
-          if (media){
-            var item = {
-              id: media._id,
-              mediaUrl: media.url,
-              name: media.name,
-              score: itemResult.score,
-              hits: gatherHits(itemResult, terms),
-              duration: media.duration,
-              searchTermResults: itemResult.term_results
-            };
-            searchResult.results.push(item);
-          }
-        }
-        res.status(200).json(searchResult);
-      });
     }
+
+    Record.find({"_id": {"$in": ids}}, function(err, data){
+      var records = _.transform(data, function(trecords, item){
+        trecords[item.id] = item;
+      });
+
+      for(var i = 0; i < count; i++) {
+        var metadata = result._embedded.items[i]._embedded["clarify:metadata"].data;
+        var itemResult = result.item_results[i];
+        var media = records[metadata.recordId];
+        if (media){
+          var item = {
+            id: media._id,
+            mediaUrl: media.url,
+            name: media.name,
+            score: itemResult.score,
+            hits: gatherHits(itemResult, terms),
+            duration: media.duration,
+            searchTermResults: itemResult.term_results
+          };
+          searchResult.results.push(item);
+        }
+      }
+      res.status(200).json(searchResult);
+    });
   });
 
 };
