@@ -1,8 +1,7 @@
 extends ../layout
 block content
   .container
-    h2= record.name
-
+    h2=record.name
     input#tags(type="text", data-role="tagsinput", placeholder='Tags', value=tags)
     input#record(type="hidden", value=record._id)
 block scripts
