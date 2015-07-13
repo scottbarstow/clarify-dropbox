@@ -1,5 +1,8 @@
+# Clarify Indexer
+
 ## Installation
 `npm install`
+
 `bower install`
 
 ## Initial data
