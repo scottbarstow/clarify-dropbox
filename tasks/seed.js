@@ -17,6 +17,8 @@ module.exports = function(){
         }, function(){
           done(true);
         });
+      } else {
+        done(true);
       }
     });
   });
