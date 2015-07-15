@@ -9,7 +9,8 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var passport = require('passport');
-var session = require('express-session')
+var session = require('express-session');
+var logger = require('morgan');
 
 mongoose.connect(config.mongodb.URI);
 
@@ -18,6 +19,8 @@ require('./middleware/passport')();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.use(logger('dev'));
 app.use(session({ secret: config.SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());

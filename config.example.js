@@ -9,7 +9,8 @@ var config = {
   },
   dropbox: {
     APP_KEY: 'Dropbox APP key',
-    APP_SECRET: 'Dropbox APP secret'
+    APP_SECRET: 'Dropbox APP secret',
+    ACCESS_TOKEN: 'Dropbox access token'
   }
 };
 

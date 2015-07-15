@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/scottbarstow/clarify-indexer",
   "dependencies": {
+    "async": "^1.3.0",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
     "clarifyio": "0.0.3",
@@ -24,9 +25,11 @@
     "express-session": "^1.11.3",
     "jade": "^1.11.0",
     "lodash": "^3.10.0",
+    "morgan": "^1.6.1",
     "passport": "^0.2.2",
     "passport-dropbox": "^0.1.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "superagent": "^1.2.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

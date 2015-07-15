@@ -11,10 +11,11 @@ exports.strategy = function() {
       callbackURL: config.BASE_URL + '/auth/dropbox/callback'
     },
     function(token, tokenSecret, profile, done) {
+      console.log(profile);
       User.findOne({dropboxId: profile.id}, function(err, user){
         if (user == null) {
           User.create({
-            dropboxId: profile.id
+            dropboxId: profile.id,
           }, function(err, user){
             return done(err, user);
           });
