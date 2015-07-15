@@ -19,11 +19,13 @@ exports.add = function(req, res) {
 
 exports.remove = function(req, res) {
   var recordId = req.params.recordId;
-  Record.findById(recordId, function(err, record){
-    if (err) {
-      res.status(404).json({message: 'Record not found.'})
-    } else {
-      record.tags.pull({name: req.params.name});
+  Record.update({_id: recordId}, {
+    $pull: {
+      tags: {
+        name: req.params.name
+      }
     }
+  }, function(){
+    res.status(200).json('Tag has been removed.');
   });
 };

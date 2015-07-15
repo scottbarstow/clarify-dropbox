@@ -59,12 +59,13 @@ exports.show = function(req, res) {
   Record.findOne({_id: req.params.id, user: req.user})
     .populate('tags')
     .exec(function(err, record){
-	if (err) {
-	  res.status(404).send('Not found');
-	} else{
-          var tagsString = _.map(record.tags, 'name').join(',');
-          res.render('records/show', {record: record, user: req.user, tags: tagsString});
-	}
+      if (err) {
+        res.status(404).send('Not found');
+      } else{
+        console.log(record);
+        var tagsString = _.map(record.tags, 'name').join(',');
+        res.render('records/show', {record: record, user: req.user, tags: tagsString});
+    	}
     });
 };
 
