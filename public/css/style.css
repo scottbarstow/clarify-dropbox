@@ -15,3 +15,7 @@
 .content p {
   margin-top: 3px;
 }
+
+.content table td.actions a{
+  margin-right: 5px;
+}

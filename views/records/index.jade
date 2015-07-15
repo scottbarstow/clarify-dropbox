@@ -22,9 +22,13 @@ block content
               audio(src=record.url, controls, preload="none")
             td=record.processing_cost              
             td= record.addedAt
-            td
+            td.actions
               if record.indexedAt
                 a(href="/show/#{record._id}") Show
+              a.delete(href="#" data-id="#{record._id}") Remove
     a.btn.btn-default(href="/new") Add
+block scripts
+  script(src="/js/record.js")
+
 
 

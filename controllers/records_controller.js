@@ -42,10 +42,22 @@ exports.add = function(req, res) {
   });
 };
 
+exports.remove = function(req, res) {
+  Record.findById(req.params.id, function(err, record){
+    if (record.bundle_id) {
+      clarifyClient.removeBundle(record.bundle_id);
+    }
+    record.remove(function(){
+      res.status(200).json('Record has been removed.')
+    });
+  });
+};
+
 exports.notify = function(req, res) {
   if (req.body.bundle_id) {
     Record.findById(req.body.external_id, function(err, record){
       record.processing_cost = req.body.processing_cost;
+      record.bundle_id = req.body.bundle_id;
       record.save();
     });
   }

@@ -22,6 +22,9 @@ var Record = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  bundle_id: {
+    type: String
+  },
   addedAt: {
     type: Date
   },

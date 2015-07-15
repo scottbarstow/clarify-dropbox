@@ -28,7 +28,6 @@ router.get('/search', ensureAuthenticated, function(req, res){
   res.render('records/search', {user: req.user})
 });
 
-
 router.get('/new', ensureAuthenticated, function(req, res){
   res.render('records/new', {user: req.user});
 });
@@ -39,6 +38,10 @@ router.post('/new', ensureAuthenticated, function(req, res){
 
 router.post('/record/:recordId/tags', ensureAuthenticatedAjax, function(req, res){
   tags.add(req, res);
+});
+
+router.delete('/:id', ensureAuthenticatedAjax, function(req, res){
+  records.remove(req, res);
 });
 
 router.delete('/record/:recordId/tags/:name', ensureAuthenticatedAjax, function(req, res){
