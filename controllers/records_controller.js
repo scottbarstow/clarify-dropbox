@@ -43,6 +43,13 @@ exports.add = function(req, res) {
 };
 
 exports.notify = function(req, res) {
+  if (req.body.bundle_id) {
+    Record.findById(req.body.external_id, function(err, record){
+      record.processing_cost = req.body.processing_cost;
+      record.save();
+    });
+  }
+
   if (req.body.track_id) { // Handle tracks
     var trackData = req.body._embedded['clarify:track'];
     Record.findById(req.body.external_id, function(err, record){

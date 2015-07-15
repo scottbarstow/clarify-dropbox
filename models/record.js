@@ -18,6 +18,10 @@ var Record = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  processing_cost: {
+    type: Number,
+    default: 0
+  },
   addedAt: {
     type: Date
   },

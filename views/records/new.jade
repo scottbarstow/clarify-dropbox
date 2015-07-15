@@ -6,8 +6,8 @@ block content
       form(action="/new", method="post")
         .form-group
           label(for="name") Name
-          input.form-control(type="text", name="name")
+          input#name.form-control(type="text", name="name")
         .form-group
           label(for="url") URL
-          input.form-control(type="text", name="url")
+          input#url.form-control(type="text", name="url")
         button.btn.btn-default(type="submit") Add

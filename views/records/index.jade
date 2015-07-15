@@ -10,14 +10,17 @@ block content
       thead
         tr
           th Name
-          th URL
+          th Audio
+          th Cost
           th Date Added
           th
         tbody
         each record in records
           tr
             td= record.name
-            td= record.url
+            td
+              audio(src=record.url, controls, preload="none")
+            td=record.processing_cost              
             td= record.addedAt
             td
               if record.indexedAt
