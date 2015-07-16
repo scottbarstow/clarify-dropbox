@@ -2,8 +2,9 @@
 
 var express = require('express');
 var router = express.Router();
-var records = require('../controllers/records_controller');
 var tags = require('../controllers/tags_controller');
+var records = require('../controllers/records_controller');
+var dropbox = require('../controllers/dropbox_controller');
 var passport = require('passport');
 
 var ensureAuthenticated = function(req, res, next) {
@@ -67,18 +68,28 @@ router.post('/sign_in', passport.authenticate('local', { failureRedirect: '/sign
 router.get('/auth/dropbox',
   passport.authenticate('dropbox'),
   function(req, res){
-  });
+  }
+);
 
 router.get('/auth/dropbox/callback',
   passport.authenticate('dropbox', { failureRedirect: '/sign_in' }),
   function(req, res) {
     res.redirect('/');
-  });
+  }
+);
 
 router.get('/sign_out', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+router.get('/dropbox/webhooks', function(req, res){
+  dropbox.verify(req, res);
+});
+router.post('/dropbox/webhooks', function(req, res){
+  dropbox.handle(req, res);
+});
+
 
 
 module.exports = router;
