@@ -4,7 +4,8 @@
 `sudo npm install -g grunt-cli`
 
 ## Installation
-`grunt install`
+1. `grunt install`
+2. `./generate-ssl-cert.sh`
 
 ## Running
 `grunt`
