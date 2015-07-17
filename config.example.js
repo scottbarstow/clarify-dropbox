@@ -1,5 +1,6 @@
 var config = {
   BASE_URL: 'http://exmaple.com',
+  BASE_URL_HTTPS: 'https://exmaple.com',
   SESSION_SECRET: 'Very small session secret',
   mongodb: {
     URI: 'mongodb://localhost/clarify-indexer'
@@ -9,8 +10,7 @@ var config = {
   },
   dropbox: {
     APP_KEY: 'Dropbox APP key',
-    APP_SECRET: 'Dropbox APP secret',
-    ACCESS_TOKEN: 'Dropbox access token'
+    APP_SECRET: 'Dropbox APP secret'
   }
 };
 
