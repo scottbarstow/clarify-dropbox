@@ -33,3 +33,4 @@ bower_components
 public/lib
 
 config.js
+config/ssl/*.pem

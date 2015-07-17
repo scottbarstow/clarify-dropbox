@@ -6,6 +6,10 @@ var State = new mongoose.Schema({
   name: {
     type: String
   },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  },
   content: {
     type: String
   } 

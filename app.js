@@ -3,6 +3,8 @@
 var express = require('express');
 var path = require('path');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
 var routes = require('./routes/index');
 var app = express();
 var mongoose = require('mongoose');
@@ -55,6 +57,14 @@ app.use(function(err, req, res, next) {
 });
 
 
-var server = http.createServer(app);
-server.listen(3000);
+var sslOptions = {
+  key: fs.readFileSync('config/ssl/key.pem'),
+  cert: fs.readFileSync('config/ssl/cert.pem')
+};
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(sslOptions, app);
+
+httpServer.listen(3000);
+httpsServer.listen(3443);
 module.exports = app;

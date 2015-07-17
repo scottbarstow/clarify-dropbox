@@ -54,6 +54,7 @@ exports.remove = function(req, res) {
 };
 
 exports.notify = function(req, res) {
+  console.log(req.body);
   if (req.body.bundle_id) {
     Record.findById(req.body.external_id, function(err, record){
       record.processing_cost = req.body.processing_cost;

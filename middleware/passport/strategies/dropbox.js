@@ -8,7 +8,7 @@ exports.strategy = function() {
   return new DropboxStrategy({
       clientID: config.dropbox.APP_KEY,
       clientSecret: config.dropbox.APP_SECRET,
-      callbackURL: config.BASE_URL + '/auth/dropbox/callback'
+      callbackURL: config.BASE_URL_HTTPS + '/auth/dropbox/callback'
     },
     function(accessToken, refreshToken, profile, done) {
       User.findOne({'dropbox.id': profile.id}, function(err, user){

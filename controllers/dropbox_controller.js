@@ -11,9 +11,9 @@ var async = require('async');
 var clarify = require('clarifyio');
 var clarifyClient = new clarify.Client("api.clarify.io", config.clarify.API_KEY);
 
-function getUrl(entry, callback){
+function getUrl(entry, user, callback){
   superagent.post("https://api.dropbox.com/1/media/auto" + entry.path)
-    .set("Authorization", "Bearer " + config.dropbox.ACCESS_TOKEN)
+    .set("Authorization", "Bearer " + user.dropbox.access_token)
     .set('Accept', 'application/json')
     .end(function(err, res){
       entry.url = res.body.url;
@@ -21,23 +21,24 @@ function getUrl(entry, callback){
     });
 }
 
-function requestCursor(callback) {
+function requestCursor(user, callback) {
   superagent
     .post('https://api.dropbox.com/1/delta/latest_cursor')
-    .set('Authorization', 'Bearer ' + config.dropbox.ACCESS_TOKEN)
+    .set('Authorization', 'Bearer ' + user.dropbox.access_token)
     .set('Accept', 'application/json')
     .end(function(err, res){
       callback(res.body.cursor);
     });
 }
 
-function getCursor(callback) {
-  State.findOne({name: 'dropbox'}, function(err, state){
+function getCursor(user, callback) {
+  State.findOne({name: 'dropbox', user: user}, function(err, state){
     if (state == null) {
-      requestCursor(function(cursor){
+      requestCursor(user, function(cursor){
         State.create({
           name: 'dropbox',
-          content: cursor
+          content: cursor,
+          user: user
         });
         callback(cursor);
       });
@@ -48,8 +49,8 @@ function getCursor(callback) {
   });
 }
 
-function saveCursor(cursor, callback) {
-  State.findOne({name: 'dropbox'}, function(err, state){
+function saveCursor(cursor, user, callback) {
+  State.findOne({name: 'dropbox', user: user}, function(err, state){
     state.content = cursor;
     state.save(callback);
   });
@@ -70,27 +71,31 @@ function processFiles(user, cursor) {
           path: e[0],
           metadata: e[1]
         };
-        getUrl(entry, function (entry) {
-          Record.create({
-            name: entry.path,
-            url: entry.url,
-            addedAt: Date.now(),
-            user: user
-          }, function (err, record) {
-            var metadata = {
-              recordId: record._id
-            };
-            clarifyClient.createBundle({
-              name: record.name,
-              media_url: record.url,
-              notify_url: config.BASE_URL + '/notify',
-              external_id: record._id,
-              metadata: JSON.stringify(metadata)
-            });
+        getUrl(entry, user, function (entry) {
+          Record.findOne({url: entry.url}, function(err, record){
+            if (record == null) {
+              Record.create({
+                name: entry.path.replace('/', ''),
+                url: entry.url,
+                addedAt: Date.now(),
+                user: user
+              }, function (err, record) {
+                var metadata = {
+                  recordId: record._id
+                };
+                clarifyClient.createBundle({
+                  name: record.name,
+                  media_url: record.url,
+                  notify_url: config.BASE_URL + '/notify',
+                  external_id: record._id,
+                  metadata: JSON.stringify(metadata)
+                });
+              });
+            }
           });
         });
       });
-      saveCursor(res.body.cursor);
+      saveCursor(res.body.cursor, user);
       if (res.body.has_more) {
         processFiles(user, res.body.cursor);
       }
@@ -101,7 +106,7 @@ exports.handle = function(req, res){
   var userIds = req.body.delta.users;
   userIds.forEach(function(userId){
     User.findOne({'dropbox.id': userId}, function(err, user) {
-      getCursor(function(cursor) {
+      getCursor(user, function(cursor) {
         processFiles(user, cursor);
       });
     });
