@@ -3,8 +3,6 @@ var config = require('../config');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-mongoose.connect(config.mongodb.URI);
-
 module.exports = function(){
   var done = this.async();
   mongoose.connection.on('open', function(){
@@ -22,4 +20,5 @@ module.exports = function(){
       }
     });
   });
+  mongoose.connect(config.mongodb.URI);
 };
