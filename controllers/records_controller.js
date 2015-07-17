@@ -55,10 +55,9 @@ exports.remove = function(req, res) {
 
 exports.notify = function(req, res) {
   console.log(req.body);
-  if (req.body.bundle_id) {
+  if (req.body.bundle_processing_cost) {
     Record.findById(req.body.external_id, function(err, record){
-      record.processing_cost = req.body.processing_cost;
-      record.bundle_id = req.body.bundle_id;
+      record.processing_cost = req.body.bundle_processing_cost;
       record.save();
     });
   }
@@ -66,6 +65,7 @@ exports.notify = function(req, res) {
   if (req.body.track_id) { // Handle tracks
     var trackData = req.body._embedded['clarify:track'];
     Record.findById(req.body.external_id, function(err, record){
+      record.bundle_id = req.body.bundle_id;
       record.indexedAt = Date.now();
       record.data = JSON.stringify(req.body);
       record.duration = trackData.duration;

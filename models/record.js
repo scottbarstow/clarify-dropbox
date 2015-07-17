@@ -19,8 +19,7 @@ var Record = new mongoose.Schema({
     default: 0
   },
   processing_cost: {
-    type: Number,
-    default: 0
+    type: Number
   },
   bundle_id: {
     type: String
