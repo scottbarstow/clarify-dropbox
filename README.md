@@ -1,12 +1,10 @@
 # Clarify Indexer
 
+## Prerequisites
+`sudo npm install -g grunt-cli`
+
 ## Installation
-`npm install`
-
-`bower install`
-
-## Initial data
-`grunt seed`
+`grunt install`
 
 ## Running
 `grunt`
