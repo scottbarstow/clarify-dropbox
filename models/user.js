@@ -22,8 +22,13 @@ var User = new mongoose.Schema({
     }],
     default: ['user']
   },
-  dropboxId: {
-    type: String
+  dropbox: {
+    id: {
+      type: String
+    },
+    access_token: {
+      type: String
+    }
   }
 });
 

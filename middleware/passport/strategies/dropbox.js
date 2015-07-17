@@ -2,25 +2,30 @@ require('../../../models/user');
 
 var config = require('../../../config');
 var User = require('mongoose').model('User');
-var DropboxStrategy = require('passport-dropbox').Strategy;
+var DropboxStrategy = require('passport-dropbox-oauth2').Strategy;
 
 exports.strategy = function() {
   return new DropboxStrategy({
-      consumerKey: config.dropbox.APP_KEY,
-      consumerSecret: config.dropbox.APP_SECRET,
+      clientID: config.dropbox.APP_KEY,
+      clientSecret: config.dropbox.APP_SECRET,
       callbackURL: config.BASE_URL + '/auth/dropbox/callback'
     },
-    function(token, tokenSecret, profile, done) {
-      console.log(profile);
-      User.findOne({dropboxId: profile.id}, function(err, user){
+    function(accessToken, refreshToken, profile, done) {
+      User.findOne({'dropbox.id': profile.id}, function(err, user){
         if (user == null) {
           User.create({
-            dropboxId: profile.id,
+            dropbox: {
+              id: profile.id,
+              access_token: accessToken
+            }
           }, function(err, user){
             return done(err, user);
           });
         } else {
-          return done(err, user);
+          user.dropbox.access_token = accessToken;
+          user.save(function(){
+            return done(err, user);
+          });
         }
       });
     });

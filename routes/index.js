@@ -65,14 +65,10 @@ router.post('/sign_in', passport.authenticate('local', { failureRedirect: '/sign
   res.redirect('/');
 });
 
-router.get('/auth/dropbox',
-  passport.authenticate('dropbox'),
-  function(req, res){
-  }
-);
+router.get('/auth/dropbox', passport.authenticate('dropbox-oauth2'));
 
 router.get('/auth/dropbox/callback',
-  passport.authenticate('dropbox', { failureRedirect: '/sign_in' }),
+  passport.authenticate('dropbox-oauth2', { failureRedirect: '/sign_in' }),
   function(req, res) {
     res.redirect('/');
   }

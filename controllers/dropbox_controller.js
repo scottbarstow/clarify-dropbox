@@ -55,55 +55,56 @@ function saveCursor(cursor, callback) {
   });
 }
 
-function processFiles(userIds, cursor) {
+function processFiles(user, cursor) {
   superagent
     .post('https://api.dropbox.com/1/delta')
     .send({
       cursor: cursor
     })
-    .set('Authorization', 'Bearer ' + config.dropbox.ACCESS_TOKEN)
+    .set('Authorization', 'Bearer ' + user.dropbox.access_token)
     .set('Accept', 'application/json')
-    .end(function(err, res){
+    .end(function(err, res) {
       var entries = res.body.entries;
-      entries.forEach(function(e, index){
+      entries.forEach(function (e, index) {
         var entry = {
           path: e[0],
           metadata: e[1]
         };
-        console.log(entry);
-        getUrl(entry, function(entry){
-          User.findOne({dropboxId: userIds[0]}, function(err, user){     
-            Record.create({
-              name: entry.path,
-              url: entry.url,
-              addedAt: Date.now(),
-              user: user
-            }, function(err, record){
-              var metadata = {
-                recordId: record._id
-              };
-              clarifyClient.createBundle({
-                name: record.name,
-                media_url: record.url,
-                notify_url: config.BASE_URL + '/notify',
-                external_id: record._id,
-                metadata: JSON.stringify(metadata)
-              });
-           });
-         });
-       });
-     });
-     saveCursor(res.body.cursor);
-     if (res.body.has_more) {
-       processFiles(userIds, res.body.cursor);
-     }
-  });
+        getUrl(entry, function (entry) {
+          Record.create({
+            name: entry.path,
+            url: entry.url,
+            addedAt: Date.now(),
+            user: user
+          }, function (err, record) {
+            var metadata = {
+              recordId: record._id
+            };
+            clarifyClient.createBundle({
+              name: record.name,
+              media_url: record.url,
+              notify_url: config.BASE_URL + '/notify',
+              external_id: record._id,
+              metadata: JSON.stringify(metadata)
+            });
+          });
+        });
+      });
+      saveCursor(res.body.cursor);
+      if (res.body.has_more) {
+        processFiles(user, res.body.cursor);
+      }
+    });
 }
 
 exports.handle = function(req, res){
   var userIds = req.body.delta.users;
-  getCursor(function(cursor){
-    processFiles(userIds, cursor);
+  userIds.forEach(function(userId){
+    User.findOne({'dropbox.id': userId}, function(err, user) {
+      getCursor(function(cursor) {
+        processFiles(user, cursor);
+      });
+    });
   });
   res.sendStatus(200);
 };
