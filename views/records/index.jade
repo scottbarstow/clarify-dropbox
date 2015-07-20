@@ -6,7 +6,7 @@ block content
       each tag in tags
         a.label.label-info(href="/?tag=" + tag, class='tag')= tag
 
-    table.table.table-hover
+    table#records.table.table-hover
       thead
         tr
           th Name
@@ -29,5 +29,17 @@ block content
     input#userId(type="hidden", value=user._id)
 block scripts
   script(src="/js/index.js")
+  script#recordTemplate(type="text/template")
+    | <tr>
+    |   <td class="name"></td>
+    |   <td class="audio">
+    |     <audio></audio>
+    |   </td>
+    |   <td class="cost"></td>
+    |   <td class="date-added"></td>
+    |   <td class="actions">
+    |     <a class="open" style="display: none">Show</a>
+    |     <a class="delete" >Delete</a>
+    |   </td>
 
 

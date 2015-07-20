@@ -56,7 +56,8 @@ function saveCursor(cursor, user, callback) {
   });
 }
 
-function processFiles(user, cursor) {
+function processFiles(user, cursor, io) {
+
   superagent
     .post('https://api.dropbox.com/1/delta')
     .send({
@@ -91,23 +92,25 @@ function processFiles(user, cursor) {
                   metadata: JSON.stringify(metadata)
                 });
               });
+              io.sockets.in(record.user._id).emit('record.added', record);
             }
           });
         });
       });
       saveCursor(res.body.cursor, user);
       if (res.body.has_more) {
-        processFiles(user, res.body.cursor);
+        processFiles(user, res.body.cursor, io);
       }
     });
 }
 
 exports.handle = function(req, res){
+  var io = req.app.get('io');
   var userIds = req.body.delta.users;
   userIds.forEach(function(userId){
     User.findOne({'dropbox.id': userId}, function(err, user) {
       getCursor(user, function(cursor) {
-        processFiles(user, cursor);
+        processFiles(user, cursor, io);
       });
     });
   });

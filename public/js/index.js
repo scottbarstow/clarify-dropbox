@@ -19,8 +19,18 @@ $(function(){
   });
 
   socket.on('record.indexed', function(record){
-    console.log(record);
     var openBtnSelector = 'a.open' + '[data-id=' + record._id + ']';
     $(openBtnSelector).show();
+  });
+
+  socket.on('record.added', function(record){
+    var $recordTemplate = $("#recordTemplate").html();
+    $recordTemplate.find('.name').append(record.name);
+    $recordTemplate.find('.audio audio').attr('src', record.url);
+    $recordTemplate.find('.cost').append(record.cost);
+    $recordTemplate.find('.date-added').append(record.addedAt);
+    $recordTemplate.find('.open').data('id', record._id);
+    $recordTemplate.find('.delete').data('id', record._id);
+    $('#records tbody').append($recordTemplate);
   });
 });
