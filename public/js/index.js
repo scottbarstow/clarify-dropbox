@@ -12,7 +12,7 @@ $(function(){
     }
   });
 
-  var socket = io('/');
+  var socket = io();
   socket.on('user.authorize', function () {
     var userId = $('#userId').val();
     socket.emit('user.authorize.response', { user: {_id: userId} });
@@ -24,6 +24,7 @@ $(function(){
   });
 
   socket.on('record.added', function(record){
+    console.log(record);
     var $recordTemplate = $("#recordTemplate").html();
     $recordTemplate.find('.name').append(record.name);
     $recordTemplate.find('.audio audio').attr('src', record.url);

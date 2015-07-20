@@ -81,6 +81,7 @@ function processFiles(user, cursor, io) {
                 addedAt: Date.now(),
                 user: user
               }, function (err, record) {
+                io.sockets.in(record.user._id).emit('record.added', record);
                 var metadata = {
                   recordId: record._id
                 };
@@ -92,7 +93,6 @@ function processFiles(user, cursor, io) {
                   metadata: JSON.stringify(metadata)
                 });
               });
-              io.sockets.in(record.user._id).emit('record.added', record);
             }
           });
         });
