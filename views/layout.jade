@@ -13,18 +13,19 @@ html
       div(class='container')
         div(class='navbar-header')
           a(class='navbar-brand', href='/') Clarify Indexer
-        .collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li
-              a(href='/') Records
-            li
-              a(href='/search') Search
-          ul.nav.navbar-nav.navbar-right
-            li
-              if (user)
-                a(href='/sign_out') Sign out
-              else
-                a(href='/sign_in') Sign in
+        if (user)
+          .collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li
+                a(href='/') Records
+              li
+                a(href='/search') Search
+            ul.nav.navbar-nav.navbar-right
+              li
+                if (user)
+                  a(href='/sign_out') Sign out
+                else
+                  a(href='/sign_in') Sign in
 
     .content
       block content
