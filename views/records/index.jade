@@ -31,15 +31,15 @@ block scripts
   script(src="/js/index.js")
   script#recordTemplate(type="text/template")
     | <tr>
-    |   <td class="name"></td>
-    |   <td class="audio">
-    |     <audio></audio>
+    |   <td><%- name %></td>
+    |   <td>
+    |     <audio src="<%- url %>" controls preload="none"></audio>
     |   </td>
-    |   <td class="cost"></td>
-    |   <td class="date-added"></td>
+    |   <td class="cost" data-id="<%- _id %>"></td>
+    |   <td><%- addedAt %></td>
     |   <td class="actions">
-    |     <a class="open" style="display: none">Show</a>
-    |     <a class="delete" >Delete</a>
+    |     <a href="/show/<%- _id %>" data-id="<%- _id %>" class="open" style="display: none">Show</a>
+    |     <a href="" class="delete" data-id="<%- _id %>">Remove</a>
     |   </td>
 
 

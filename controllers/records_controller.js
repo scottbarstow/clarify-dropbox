@@ -56,9 +56,10 @@ exports.remove = function(req, res) {
 exports.notify = function(req, res) {
   var io = req.app.get('io');
 
-  if (req.body.bundle_processing_cost) {
+  if ('bundle_processing_cost' in req.body) {
     Record.findById(req.body.external_id, function(err, record){
       record.processing_cost = req.body.bundle_processing_cost;
+      io.sockets.in(record.user).emit('record.indexed', record);
       record.save();
     });
   }
@@ -72,7 +73,6 @@ exports.notify = function(req, res) {
         record.data = JSON.stringify(req.body);
         record.duration = trackData.duration;
         record.save();
-        io.sockets.in(record.user._id).emit('record.indexed', {_id: record._id});
       }
     });
   }

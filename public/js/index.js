@@ -15,23 +15,20 @@ $(function(){
   var socket = io();
   socket.on('user.authorize', function () {
     var userId = $('#userId').val();
-    socket.emit('user.authorize.response', { user: {_id: userId} });
+    socket.emit('user.authorize.response', { _id: userId });
   });
 
   socket.on('record.indexed', function(record){
-    var openBtnSelector = 'a.open' + '[data-id=' + record._id + ']';
+    var dataSelector = '[data-id="' + record._id + '"]';
+    $('.cost' + dataSelector).append(record.processing_cost);
+    var openBtnSelector = 'a.open' + dataSelector;
     $(openBtnSelector).show();
   });
 
   socket.on('record.added', function(record){
     console.log(record);
-    var $recordTemplate = $("#recordTemplate").html();
-    $recordTemplate.find('.name').append(record.name);
-    $recordTemplate.find('.audio audio').attr('src', record.url);
-    $recordTemplate.find('.cost').append(record.cost);
-    $recordTemplate.find('.date-added').append(record.addedAt);
-    $recordTemplate.find('.open').data('id', record._id);
-    $recordTemplate.find('.delete').data('id', record._id);
-    $('#records tbody').append($recordTemplate);
+    var recordTemplate = $("#recordTemplate").html();
+    var $tr  = $(_.template(recordTemplate, record));
+    $('#records tbody').append($tr);
   });
 });
