@@ -65,6 +65,16 @@ var sslOptions = {
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(sslOptions, app);
 
+var io = require('socket.io')(httpsServer);
+var broker = require('./brokers/records_broker');
+
+app.set('io', io);
+io.on('connection', function(socket){
+  broker.authorize(socket);
+  socket.io = io;
+});
+
+
 httpServer.listen(3000);
 httpsServer.listen(3443);
 module.exports = app;

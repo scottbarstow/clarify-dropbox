@@ -54,7 +54,8 @@ exports.remove = function(req, res) {
 };
 
 exports.notify = function(req, res) {
-  console.log(req.body);
+  var io = req.app.get('io');
+
   if (req.body.bundle_processing_cost) {
     Record.findById(req.body.external_id, function(err, record){
       record.processing_cost = req.body.bundle_processing_cost;
@@ -65,11 +66,14 @@ exports.notify = function(req, res) {
   if (req.body.track_id) { // Handle tracks
     var trackData = req.body._embedded['clarify:track'];
     Record.findById(req.body.external_id, function(err, record){
-      record.bundle_id = req.body.bundle_id;
-      record.indexedAt = Date.now();
-      record.data = JSON.stringify(req.body);
-      record.duration = trackData.duration;
-      record.save();
+      if (record) {
+        record.bundle_id = req.body.bundle_id;
+        record.indexedAt = Date.now();
+        record.data = JSON.stringify(req.body);
+        record.duration = trackData.duration;
+        record.save();
+        io.sockets.in(record.user._id).emit('record.indexed', {_id: record._id});
+      }
     });
   }
   res.sendStatus(200);
