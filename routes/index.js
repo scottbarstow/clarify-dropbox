@@ -57,6 +57,10 @@ router.get('/show/:id', ensureAuthenticated, function(req, res){
   records.show(req, res);
 });
 
+router.put('/:id', ensureAuthenticatedAjax, function(req, res){
+  records.update(req, res);
+});
+
 router.get('/sign_in', function(req, res){
   res.render('sign_in', { user: req.user });
 });

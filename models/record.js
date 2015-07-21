@@ -48,6 +48,4 @@ var Record = new mongoose.Schema({
   }
 });
 
-Record.methods.
-
 module.exports = mongoose.model('Record', Record);

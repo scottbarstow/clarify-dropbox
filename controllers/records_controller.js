@@ -42,6 +42,19 @@ exports.add = function(req, res) {
   });
 };
 
+exports.update = function(req, res) {
+  Record.findById(req.params.id, function(err, record){
+    if (record == null) {
+      res.status(404).json('Record not found.');
+    } else {
+      record.name = record.name;
+      record.save(function(){
+        res.status(200).json('Record has been updated.');
+      });
+    }
+  });
+};
+
 exports.remove = function(req, res) {
   Record.findById(req.params.id, function(err, record){
     if (record.bundle_id) {
