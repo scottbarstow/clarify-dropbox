@@ -18,13 +18,13 @@ var Record = new mongoose.Schema({
     type: Number,
     default: 0,
     get: function(value){
-      return value.toHHMMSS();
+      return value ? value.toHHMMSS() : 'N/A';
     }
   },
   processing_cost: {
     type: Number,
     get: function(value) {
-      return '$' + value;
+      return value ? '$' + value : 'N/A';
     }
   },
   bundle_id: {
