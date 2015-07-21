@@ -47,7 +47,7 @@ exports.update = function(req, res) {
     if (record == null) {
       res.status(404).json('Record not found.');
     } else {
-      record.name = record.name;
+      record.name = req.body.name;
       record.save(function(){
         res.status(200).json('Record has been updated.');
       });

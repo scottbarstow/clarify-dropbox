@@ -1,5 +1,9 @@
-.search input[type="text"], button {
+.search input[type="text"] {
     width: 100%;
+}
+
+.search button {
+  width: 100%;
 }
 
 .media{

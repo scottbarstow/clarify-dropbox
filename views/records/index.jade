@@ -11,7 +11,8 @@ block content
         tr
           th Name
           th Audio
-          th Cost
+          th Duration
+          th Cost        
           th Date Added
           th
         tbody
@@ -20,6 +21,7 @@ block content
             td= record.name
             td
               audio(src=record.url, controls, preload="none")
+            td=record.duration
             td=record.processing_cost              
             td= record.addedAt
             td.actions

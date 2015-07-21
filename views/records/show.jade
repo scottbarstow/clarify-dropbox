@@ -2,19 +2,22 @@ extends ../layout
 block content
   .container.show
     #view
-      h2=record.name
-      a(href="#") Rename
+      h2
+        p= record.name
+        a(href="#")
+          i.fa.fa-edit
 
-    #edit
-      h2.hide
-        form
+    #edit(style="display: none;")
+      h2
+        form(action="")
           input(type="text", value=record.name)
           button.btn.btn-primary(type="submit") Save
     .row
       .col-sm-2
         label URL:
       .col-sm-10
-        a(href=record.url) Link
+        a(href=record.url) 
+          p= record.url
     .row
       .col-sm-2
         label Duration:
@@ -33,3 +36,4 @@ block content
     input#record(type="hidden", value=record._id)
 block scripts
   script(src='/js/tags.js')
+  script(src='/js/show.js')

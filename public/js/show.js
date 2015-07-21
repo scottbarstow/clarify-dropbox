@@ -1,11 +1,12 @@
 $(function(){
-  $('#rename').click(function(){
+  var $nameInput = $(this).find('input[type="text"]');
+  $('#view a').click(function(){
     $('#view').hide();
     $('#edit').show();
   });
 
-  $('#edit form').submit(function() {
-    var name = $(this).find('input[type="text"]').val();
+  $('#edit form').submit(function(e) {
+    var name = $nameInput.val();
     var recordId = $('#record').val();
 
     $.ajax({
@@ -17,6 +18,8 @@ $(function(){
     }).done(function(){
       $('#view').show();
       $('#edit').hide();
+      $('#view h2 p').text(name);
     });
+    e.preventDefault();
   });
 });

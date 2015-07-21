@@ -1,0 +1,19 @@
+.show #view a {
+  margin-left: 10px;
+}
+
+.show #view p {
+  display: inline;
+};
+
+.show #edit input,button {
+  display: inline;
+}
+
+.show #edit button {
+  margin-left: 10px;
+}
+
+.show a p {
+  word-wrap: break-word;
+}
