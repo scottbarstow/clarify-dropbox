@@ -32,6 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', routes);
 
+app.locals.time = require('./utils/time');
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

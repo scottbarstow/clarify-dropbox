@@ -16,10 +16,16 @@ var Record = new mongoose.Schema({
   },
   duration: {
     type: Number,
-    default: 0
+    default: 0,
+    get: function(value){
+      return value.toHHMMSS();
+    }
   },
   processing_cost: {
-    type: Number
+    type: Number,
+    get: function(value) {
+      return '$' + value;
+    }
   },
   bundle_id: {
     type: String
@@ -41,5 +47,7 @@ var Record = new mongoose.Schema({
     ref: 'User'
   }
 });
+
+Record.methods.
 
 module.exports = mongoose.model('Record', Record);

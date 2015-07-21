@@ -26,7 +26,6 @@ $(function(){
   });
 
   socket.on('record.added', function(record){
-    console.log(record);
     var recordTemplate = $("#recordTemplate").html();
     var $tr  = $(_.template(recordTemplate, record));
     $('#records tbody').append($tr);
