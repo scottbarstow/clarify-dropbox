@@ -21,11 +21,13 @@ $(function(){
   socket.on('record.indexed', function(record){
     var dataSelector = '[data-id="' + record._id + '"]';
     $('.cost' + dataSelector).append(record.processing_cost);
+    $('.duration' + dataSelector).append(record.duration);
     var openBtnSelector = 'a.open' + dataSelector;
     $(openBtnSelector).show();
   });
 
   socket.on('record.added', function(record){
+    console.log(record);
     var recordTemplate = $("#recordTemplate").html();
     var $tr  = $(_.template(recordTemplate, record));
     $('#records tbody').append($tr);
