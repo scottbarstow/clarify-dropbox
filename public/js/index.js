@@ -20,14 +20,14 @@ $(function(){
 
   socket.on('record.indexed', function(record){
     var dataSelector = '[data-id="' + record._id + '"]';
-    $('.cost' + dataSelector).append(record.processing_cost);
-    $('.duration' + dataSelector).append(record.duration);
+    $('.duration' + dataSelector).html(record.duration);
+    $('.cost' + dataSelector).html(record.processing_cost);
     var openBtnSelector = 'a.open' + dataSelector;
     $(openBtnSelector).show();
   });
 
   socket.on('record.added', function(record){
-    console.log(record);
+    $("tr[data-id='" + record._id + "']").remove();
     var recordTemplate = $("#recordTemplate").html();
     var $tr  = $(_.template(recordTemplate, record));
     $('#records tbody').append($tr);

@@ -68,12 +68,14 @@ exports.remove = function(req, res) {
 
 exports.notify = function(req, res) {
   var io = req.app.get('io');
+  console.log(req.body);
 
   if ('bundle_processing_cost' in req.body) {
     Record.findById(req.body.external_id, function(err, record){
       record.processing_cost = req.body.bundle_processing_cost;
-      io.sockets.in(record.user).emit('record.indexed', record);
-      record.save();
+      record.save(function(err, record){
+        io.sockets.in(record.user).emit('record.indexed', record);
+      });
     });
   }
 
@@ -85,7 +87,9 @@ exports.notify = function(req, res) {
         record.indexedAt = Date.now();
         record.data = JSON.stringify(req.body);
         record.duration = trackData.duration;
-        record.save();
+        record.save(function(err, record){
+          io.sockets.in(record.user).emit('record.indexed', record);
+        });
       }
     });
   }

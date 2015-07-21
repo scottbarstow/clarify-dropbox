@@ -17,7 +17,7 @@ block content
           th
         tbody
         each record in records
-          tr
+          tr(data-id="#{record._id}")
             td= record.name
             td
               audio(src=record.url, controls, preload="none")
@@ -32,7 +32,7 @@ block content
 block scripts
   script(src="/js/index.js")
   script#recordTemplate(type="text/template")
-    | <tr>
+    | <tr data-id="<%- _id %>">
     |   <td><%- name %></td>
     |   <td>
     |     <audio src="<%- url %>" controls preload="none"></audio>
