@@ -27,9 +27,10 @@ $(function(){
   });
 
   socket.on('record.added', function(record){
+    console.log('TTTT');
     $("tr[data-id='" + record._id + "']").remove();
     var recordTemplate = $("#recordTemplate").html();
     var $tr  = $(_.template(recordTemplate, record));
-    $('#records tbody').append($tr);
+    $('#records > tbody').append($tr);
   });
 });

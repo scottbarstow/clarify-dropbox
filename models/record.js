@@ -16,7 +16,6 @@ var Record = new mongoose.Schema({
   },
   duration: {
     type: Number,
-    default: 0,
     get: function(value){
       return value ? value.toHHMMSS() : 'N/A';
     }
@@ -48,4 +47,5 @@ var Record = new mongoose.Schema({
   }
 });
 
+Record.set('toJSON', { getters: true });
 module.exports = mongoose.model('Record', Record);
