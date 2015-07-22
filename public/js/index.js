@@ -18,6 +18,11 @@ $(function(){
     socket.emit('user.authorize.response', { _id: userId });
   });
 
+  socket.on('record.accepted', function(record){
+    var dataSelector = '[data-id="' + record._id + '"]';
+    $('.cost' + dataSelector).html(record.processing_cost);
+  });
+
   socket.on('record.indexed', function(record){
     var dataSelector = '[data-id="' + record._id + '"]';
     $('.duration' + dataSelector).html(record.duration);
