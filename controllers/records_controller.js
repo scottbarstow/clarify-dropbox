@@ -72,10 +72,10 @@ exports.notify = function(req, res) {
 
   if ('bundle_processing_cost' in req.body) {
     Record.findById(req.body.external_id, function(err, record){
-      record.processing_cost = req.body.bundle_processing_cost;
-      record.save(function(err, record){
-        io.sockets.in(record.user).emit('record.indexed', record);
-      });
+      if (record) {
+        record.processing_cost = req.body.bundle_processing_cost;
+        record.save();
+      }
     });
   }
 
