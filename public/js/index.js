@@ -34,6 +34,7 @@ $(function(){
   socket.on('record.added', function(record){
     $("tr[data-id='" + record._id + "']").remove();
     var recordTemplate = $("#recordTemplate").html();
+    record.addedAt = new Date(record.addedAt).toString();
     var $tr  = $(_.template(recordTemplate, record));
     $('#records > tbody').append($tr);
   });
