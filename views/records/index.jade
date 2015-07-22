@@ -21,7 +21,7 @@ block content
             td= record.name
             td
               audio(src=record.url, controls, preload="none")
-            td=record.duration
+            td=record.durationFormatted
             td=record.processing_cost              
             td= record.addedAt
             td.actions

@@ -25,8 +25,7 @@ $(function(){
 
   socket.on('record.indexed', function(record){
     var dataSelector = '[data-id="' + record._id + '"]';
-    $('.duration' + dataSelector).html(record.duration);
-    $('.cost' + dataSelector).html(record.processing_cost);
+    $('.duration' + dataSelector).html(record.durationFormatted);
     var openBtnSelector = 'a.open' + dataSelector;
     $(openBtnSelector).show();
   });

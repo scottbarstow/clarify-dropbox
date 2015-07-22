@@ -15,15 +15,12 @@ var Record = new mongoose.Schema({
    type: String
   },
   duration: {
-    type: Number,
-    get: function(value){
-      return value ? value.toHHMMSS() : 'N/A';
-    }
+    type: Number
   },
   processing_cost: {
     type: Number,
     get: function(value) {
-      return value ? '$' + value : 'N/A';
+      return value === undefined ? 'N/A' : '$' + value;
     }
   },
   bundle_id: {
@@ -47,5 +44,9 @@ var Record = new mongoose.Schema({
   }
 });
 
-Record.set('toJSON', { getters: true });
+Record.virtual('durationFormatted')
+  .get(function(){
+    return this.duration ? this.duration.toHHMMSS() : 'N/A';
+  });
+Record.set('toJSON', { virtuals: true, getters: true });
 module.exports = mongoose.model('Record', Record);
