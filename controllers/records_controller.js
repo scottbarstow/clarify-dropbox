@@ -74,7 +74,9 @@ exports.notify = function(req, res) {
     Record.findById(req.body.external_id, function(err, record){
       if (record) {
         record.processing_cost = req.body.bundle_processing_cost;
-        record.save();
+        record.save(function(err, record){
+          io.sockets.in(record.user).emit('record.indexed', record);
+        });
       }
     });
   }
@@ -87,9 +89,9 @@ exports.notify = function(req, res) {
         record.indexedAt = Date.now();
         record.data = JSON.stringify(req.body);
         record.duration = trackData.duration;
-        record.save(function(err, record){
-          io.sockets.in(record.user).emit('record.indexed', record);
-        });
+        record.save();//function(err, record){
+        //   io.sockets.in(record.user).emit('record.indexed', record);
+        //});
       }
     });
   }
