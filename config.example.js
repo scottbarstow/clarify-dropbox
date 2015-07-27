@@ -1,7 +1,7 @@
 var config = {
-  BASE_URL: 'http://exmaple.com',
-  BASE_URL_HTTPS: 'https://exmaple.com',
-  SESSION_SECRET: 'Very small session secret',
+  BASE_URL: 'http://your.publicip.com or host',
+  BASE_URL_HTTPS: 'https://your.publicip.com or host',
+  SESSION_SECRET: 'Generate a random string',
   mongodb: {
     URI: 'mongodb://localhost/clarify-indexer'
   },
