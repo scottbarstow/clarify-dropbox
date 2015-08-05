@@ -1,4 +1,13 @@
-# Clarify Indexer
+# Clarify Dropbox Mashup
+
+## Purpose
+The purpose of this project is to demonstrate a somewhat simple integration between the Dropbox Application API and Clarify.io's Media Indexing Service.  
+
+## How It Works
+When files are dropped into the Dropbox folder for the configured applciation (see below for instructions), this application will receive a notification from Dropbox.  Upon receipt of the notification, the application sends the url of the media file to Clarify to be indexed.  Once the file is indexed, the contents can be searched from inside this application and played back.
+
+## Demo Video
+[Watch a demonstration of the application in action](https://www.youtube.com/watch?v=Hsep_UrOvDU)
 
 ## Prerequisites
 `sudo npm install -g grunt-cli`
